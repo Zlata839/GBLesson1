@@ -1,9 +1,31 @@
 package ru.gb.family_tree;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        String fileLink = "src/ru/gb/family_tree/writer/tree.txt";
+
+        FamilyTree tree = read(fileLink);
+
+//        FamilyTree tree = testTree();
+        System.out.println(tree);
+
+        save(tree, fileLink);
+    }
+
+        static FamilyTree read(String fileLink){
+            FileHandler fileHandler = new FileHandler();
+            return(FamilyTree) fileHandler.readObject(fileLink);
+        }
+
+        static void save(FamilyTree tree, String fileLink){
+            FileHandler fileHandler = new FileHandler();
+            fileHandler.writeObject(tree, fileLink);
+        }
+
+        static FamilyTree testTree(){
         FamilyTree tree = new FamilyTree(1);
 
         Human igor = new Human ("Игорь Федорович", Gender.Male,
@@ -44,5 +66,7 @@ public class Main {
         tree.isChildren(petr, kirill, maria);
 
         System.out.println(tree.getHumanInfo());
+
+        return tree;
     }
 }
