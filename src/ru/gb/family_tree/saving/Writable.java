@@ -1,8 +1,6 @@
-package ru.gb.family_tree;
+package ru.gb.family_tree.saving;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 public interface Writable {
     void writeObject(Serializable serializable, String fileLink);

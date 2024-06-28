@@ -1,4 +1,4 @@
-package ru.gb.family_tree;
+package ru.gb.family_tree.human;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements Serializable {
+public class Human implements Serializable, Comparable<Human>{
 
     private long id;
     private String name;
@@ -29,7 +29,7 @@ public class Human implements Serializable {
         spouse = new ArrayList<>();
     }
 
-    public Human (String name, Gender gender, LocalDate birthDate) {
+    public Human(String name, Gender gender, LocalDate birthDate) {
         this(name, gender, birthDate, null);
     }
 
@@ -46,27 +46,75 @@ public class Human implements Serializable {
         return diff.getYears();
     }
 
-    public long getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public String getName() { return name; }
-    public LocalDate getBirthDate() { return birthDate; }
-    public void setDeathDate(LocalDate deathDate) { this.deathDate = deathDate; }
-    public LocalDate getDeathDate() { return deathDate; }
-    public void setFather(Human father) { this.father = father; }
-    public Human getFather() { return father; }
-    public void setMother(Human mother) { this.mother = mother; }
-    public Human getMother() { return mother; }
-    public void setSpouse(List<Human> spouse) { this.spouse = spouse; }
-    public List<Human> getSpouse() { return spouse; }
-    public void setChildren(List<Human> children) { this.children = children; }
-    public List<Human> getChildren() { return children; }
-    public Gender getGender() {return gender; }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
+    }
+
+    public LocalDate getDeathDate() {
+        return deathDate;
+    }
+
+    public void setFather(Human father) {
+        this.father = father;
+    }
+
+    public Human getFather() {
+        return father;
+    }
+
+    public void setMother(Human mother) {
+        this.mother = mother;
+    }
+
+    public Human getMother() {
+        return mother;
+    }
+
+    public void setSpouse(List<Human> spouse) {
+        this.spouse = spouse;
+    }
+
+    public List<Human> getSpouse() {
+        return spouse;
+    }
+
+    public void setChildren(List<Human> children) {
+        this.children = children;
+    }
+
+    public List<Human> getChildren() {
+        return children;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
 
     @Override
     public String toString() {
         return getHumanInfo();
     }
 
+        @Override
+    public int compareTo(Human o) {
+        return name.compareTo(o.getName());
+    }
     private String getHumanInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t");
@@ -99,12 +147,12 @@ public class Human implements Serializable {
         StringBuilder stringBuilder = new StringBuilder();
         if (!getSpouse().isEmpty()) {
             stringBuilder.append("Супруг(а):");
-            for (Human spouse: getSpouse()) {
+            for (Human spouse : getSpouse()) {
                 if (spouse.getGender() == Gender.Male) {
                     stringBuilder.append(" ");
                 } else {
                     if (spouse.getGender() == Gender.Female)
-                    stringBuilder.append(" ");
+                        stringBuilder.append(" ");
                 }
                 stringBuilder.append(spouse.getName());
             }

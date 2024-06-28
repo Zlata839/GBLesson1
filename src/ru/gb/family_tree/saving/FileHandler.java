@@ -1,8 +1,6 @@
-package ru.gb.family_tree;
+package ru.gb.family_tree.saving;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileHandler implements Writable {
     public void writeObject(Serializable serializable, String fileLink){

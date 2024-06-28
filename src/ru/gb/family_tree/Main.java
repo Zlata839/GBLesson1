@@ -1,15 +1,23 @@
 package ru.gb.family_tree;
 
+import ru.gb.family_tree.family_tree.FamilyTree;
+import ru.gb.family_tree.human.Gender;
+import ru.gb.family_tree.human.Human;
+import ru.gb.family_tree.saving.FileHandler;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String fileLink = "src/ru/gb/family_tree/writer/tree.txt";
+        String fileLink = "src/ru/gb/family_tree/saving/files/tree.txt";
 
-        FamilyTree tree = read(fileLink);
+//        FamilyTree tree = read(fileLink);
 
-//        FamilyTree tree = testTree();
+        FamilyTree tree = testTree();
         System.out.println(tree);
 
         save(tree, fileLink);
@@ -66,6 +74,10 @@ public class Main {
         tree.isChildren(petr, kirill, maria);
 
         System.out.println(tree.getHumanInfo());
+        tree.sortByName();
+        System.out.println(tree.getHumanInfo());
+        tree.sortByBirthDate();
+
 
         return tree;
     }
