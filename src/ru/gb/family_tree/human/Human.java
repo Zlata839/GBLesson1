@@ -1,12 +1,15 @@
 package ru.gb.family_tree.human;
 
+import ru.gb.family_tree.family_tree.FamilyTreeItems;
+import ru.gb.family_tree.saving.FileHandler;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements Serializable, Comparable<Human>{
+public class Human extends FileHandler implements Serializable, Comparable<Human>, FamilyTreeItems<Human> {
 
     private long id;
     private String name;
@@ -46,18 +49,22 @@ public class Human implements Serializable, Comparable<Human>{
         return diff.getYears();
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -70,34 +77,42 @@ public class Human implements Serializable, Comparable<Human>{
         return deathDate;
     }
 
+    @Override
     public void setFather(Human father) {
         this.father = father;
     }
 
+    @Override
     public Human getFather() {
         return father;
     }
 
+    @Override
     public void setMother(Human mother) {
         this.mother = mother;
     }
 
+    @Override
     public Human getMother() {
         return mother;
     }
 
+    @Override
     public void setSpouse(List<Human> spouse) {
         this.spouse = spouse;
     }
 
+    @Override
     public List<Human> getSpouse() {
         return spouse;
     }
 
+    @Override
     public void setChildren(List<Human> children) {
         this.children = children;
     }
 
+    @Override
     public List<Human> getChildren() {
         return children;
     }
@@ -111,7 +126,7 @@ public class Human implements Serializable, Comparable<Human>{
         return getHumanInfo();
     }
 
-        @Override
+    @Override
     public int compareTo(Human o) {
         return name.compareTo(o.getName());
     }

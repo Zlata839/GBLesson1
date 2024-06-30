@@ -6,10 +6,7 @@ import ru.gb.family_tree.human.Human;
 import ru.gb.family_tree.saving.FileHandler;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -77,7 +74,6 @@ public class Main {
         tree.sortByName();
         System.out.println(tree.getHumanInfo());
         tree.sortByBirthDate();
-
 
         return tree;
     }

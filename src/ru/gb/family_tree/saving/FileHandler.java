@@ -2,7 +2,8 @@ package ru.gb.family_tree.saving;
 
 import java.io.*;
 
-public class FileHandler implements Writable {
+public class FileHandler implements Serializable, Writable {
+    @Override
     public void writeObject(Serializable serializable, String fileLink){
 
         try {
@@ -16,6 +17,7 @@ public class FileHandler implements Writable {
 
 
     }
+    @Override
     public Object readObject(String fileLink){
 
         try {
