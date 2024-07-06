@@ -1,17 +1,15 @@
-package ru.gb.family_tree.family_tree;
-
-import ru.gb.family_tree.human.Human;
+package ru.gb.family_tree.model.family_tree;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class FamilyTreeIterator<T> implements Iterator<T> {
+
     private List<T> list;
     private int index;
 
     public FamilyTreeIterator(List<T> humanList) {
-        this.list = list;
-        index = 0;
+        this.list = humanList;
     }
 
     @Override

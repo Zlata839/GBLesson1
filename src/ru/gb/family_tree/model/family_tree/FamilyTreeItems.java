@@ -1,9 +1,10 @@
-package ru.gb.family_tree.family_tree;
+package ru.gb.family_tree.model.family_tree;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface FamilyTreeItems<T> {
+public interface FamilyTreeItems<T> extends Serializable {
     void setId(int i);
     long getId();
     String getName();

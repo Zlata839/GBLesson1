@@ -1,7 +1,6 @@
-package ru.gb.family_tree.human;
+package ru.gb.family_tree.model.human;
 
-import ru.gb.family_tree.family_tree.FamilyTreeItems;
-import ru.gb.family_tree.saving.FileHandler;
+import ru.gb.family_tree.model.family_tree.FamilyTreeItems;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,7 +8,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human extends FileHandler implements Serializable, Comparable<Human>, FamilyTreeItems<Human> {
+public class Human implements Serializable, Comparable<Human>, FamilyTreeItems<Human> {
 
     private long id;
     private String name;
@@ -23,7 +22,7 @@ public class Human extends FileHandler implements Serializable, Comparable<Human
 
     public Human(String name, Gender gender, LocalDate birthDate, LocalDate deathDate) {
 
-        id = -1;
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;

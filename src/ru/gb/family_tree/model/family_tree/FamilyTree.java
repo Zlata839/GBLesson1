@@ -1,42 +1,60 @@
-package ru.gb.family_tree.family_tree;
+package ru.gb.family_tree.model.family_tree;
 
-import ru.gb.family_tree.family_tree.comparators.FamilyTreeComparatorByDate;
-import ru.gb.family_tree.family_tree.comparators.FamilyTreeComparatorByName;
-import ru.gb.family_tree.saving.FileHandler;
+import ru.gb.family_tree.model.family_tree.comparators.FamilyTreeComparatorByDate;
+import ru.gb.family_tree.model.family_tree.comparators.FamilyTreeComparatorByName;
+import ru.gb.family_tree.model.saving.FileHandler;
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implements Serializable, Iterable<E> {
-    long id;
-    private int humanId;
+    private int count = 1;
     private List<E> humanList;
+    private String familyName;
 
 
-    public FamilyTree(long id) {
-        this.id = id;
+    public FamilyTree(String familyName){
+        this.familyName = familyName;
         humanList = new ArrayList<>();
     }
 
-    public void addInFamily(E human){
-        human.setId(humanId++);
-        humanList.add(human);
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public String getHumanInfo() {
+
+    public int addInFamily(E human) {
+        int newId = count++;
+        human.setId(newId);
+        humanList.add(human);
+        return newId;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public String getFamilyInfo() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Список членов семьи:\n");
-        for (E human : humanList) {
+        stringBuilder.append(familyName);
+        stringBuilder.append(":\n");
+        for (E human: humanList) {
+            stringBuilder.append(human.getId());
+            stringBuilder.append(". ");
             stringBuilder.append(human);
-            stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
 
-    public void isSpose (E human1, E human2) {
+    public int size() {
+        return humanList.size();
+    }
+
+    public void isSpouse (E human1, E human2) {
 
         List<E> human1Spouse = human1.getSpouse();
         human1Spouse.add(human2);
@@ -61,10 +79,7 @@ public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implem
         mother.setChildren(motherChild);
     }
 
-    @Override
-    public String toString() {
-        return getHumanInfo();
-    }
+
 
     public String getHumanInfo(E human) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -102,15 +117,22 @@ public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implem
         return stringBuilder.toString();
     }
 
+    @Override
+    public String toString() {
+        return getFamilyInfo();
+    }
 
     @Override
     public Iterator<E> iterator() {
         return new FamilyTreeIterator<>(humanList);
     }
 
-    public void sortByName() { humanList.sort(new FamilyTreeComparatorByName<>()); }
+//    public void sortByName() { humanList.sort(new FamilyTreeComparatorByName<>()); }
+//
+//    public void sortByBirthDate() { humanList.sort(new FamilyTreeComparatorByDate<>()); }
 
-    public void sortByBirthDate() { humanList.sort(new FamilyTreeComparatorByDate<>()); }
-
+    public void sort(Comparator<E> comparator) {
+        humanList.sort(comparator);
+    }
 }
 
