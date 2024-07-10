@@ -4,7 +4,7 @@ import ru.gb.family_tree.model.family_tree.FamilyTree;
 import ru.gb.family_tree.model.human.Human;
 
 public class ConsoleSaving implements Saving {
-    private static final String LINK = "src/ru/gb/family_tree/model/saving/files";
+    private static final String LINK = "src/ru/gb/family_tree/model/saving/files/";
     private static final String SAVE_FILE_NAME = "_saveFile.txt";
     public void save(FamilyTree<Human> familyTree) {
         FileHandler fileHandler = new FileHandler();

@@ -3,9 +3,10 @@ package ru.gb.family_tree.view;
 public interface ConsoleCommands {
     void createFamilyTree();
     void addInFamily();
+    void addDeathDate();
     void getFamilyList();
     void getMarried();
-    void getChild();
+    void addParents();
     void getHumanInfo();
     void saveFamilyTree();
     void downloadFamilyTree();

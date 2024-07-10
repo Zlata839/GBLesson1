@@ -1,7 +1,6 @@
 package ru.gb.family_tree.view;
 
 import ru.gb.family_tree.model.human.Gender;
-import ru.gb.family_tree.model.human.Human;
 import ru.gb.family_tree.presenter.Presenter;
 
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ConsoleUI implements View, ConsoleCommands {
-    private static final String INPUT_ERROR = "Что то пошло не так((";
+    private static final String INPUT_ERROR = "Что то пошло не так...";
     private Scanner scanner;
     private Presenter presenter;
     private boolean work;
@@ -37,6 +36,7 @@ public class ConsoleUI implements View, ConsoleCommands {
         }
     }
 
+    @Override
     public void createFamilyTree() {
         System.out.println("Введите навзание вашего древа:");
         String family = scanner.nextLine();
@@ -44,6 +44,7 @@ public class ConsoleUI implements View, ConsoleCommands {
         System.out.println("Создано новое пустое семейное дерево: " + family);
     }
 
+    @Override
     public void addInFamily() {
         System.out.println("Введите имя:");
         String name = scanner.nextLine();
@@ -51,7 +52,6 @@ public class ConsoleUI implements View, ConsoleCommands {
         System.out.println("Введите дату рождения (формат дд мм гггг):");
         String strBirthDate = scanner.nextLine();
 
-        // Use DateTimeFormatter for robust date parsing
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
         LocalDate birthDate;
         try {
@@ -74,20 +74,43 @@ public class ConsoleUI implements View, ConsoleCommands {
             return;
         }
 
-        int newId = presenter.addInFamily(name, birthDate, gender);
-        System.out.println("Добавлен новый член семьи: ID = " + newId + ", Name = " + name);
-        presenter.getFamilyInfo();
+        presenter.addInFamily(name, birthDate, gender);
     }
 
+    @Override
     public void getFamilyList() {
         presenter.getFamilyInfo();
     }
 
+    @Override
+    public void addDeathDate() {
+        presenter.getFamilyInfo();
+        System.out.println("Введите ID человека:");
+        String deathPerson = scanner.nextLine();
+        if (checkTextForInt(deathPerson)) {
+            int deathPersonID = Integer.parseInt(deathPerson);
+            if (checkID(deathPersonID)) {
+                System.out.println("Введите дату смерти (формат дд мм гггг):");
+                String strDeathDate = scanner.nextLine();
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+                LocalDate deathDate;
+                try {
+                    deathDate = LocalDate.parse(strDeathDate, formatter);
+                    presenter.addDeathDate(deathPersonID, deathDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Неверный формат даты. Пожалуйста, используйте дд мм гггг.");
+                }
+            }
+        }
+    }
+
+    @Override
     public void getMarried() {
         presenter.getFamilyInfo();
-        System.out.println("Введите id мужа:");
+        System.out.println("Введите ID мужа:");
         String strHusband = scanner.nextLine();
-        System.out.println("Введите id жены:");
+        System.out.println("Введите ID жены:");
         String strWife = scanner.nextLine();
         if (checkTextForInt(strHusband) && checkTextForInt(strWife)) {
             int husbandID = Integer.parseInt(strHusband);
@@ -98,26 +121,28 @@ public class ConsoleUI implements View, ConsoleCommands {
         }
     }
 
-    public void getChild() {
+    @Override
+    public void addParents() {
         presenter.getFamilyInfo();
-        System.out.println("Введите id ребенка:");
+        System.out.println("Введите ID ребенка:");
         String strChild = scanner.nextLine();
-        System.out.println("Введите id отца:");
+        System.out.println("Введите ID отца:");
         String strFather = scanner.nextLine();
-        System.out.println("Введите id матери:");
+        System.out.println("Введите ID матери:");
         String strMother = scanner.nextLine();
         if (checkTextForInt(strChild) && checkTextForInt(strFather) && checkTextForInt(strMother)) {
             int childID = Integer.parseInt(strChild);
             int fatherID = Integer.parseInt(strFather);
             int motherID = Integer.parseInt(strMother);
             if (checkID(childID) && checkID(fatherID) && checkID(motherID)) {
-                presenter.getChild(childID, fatherID, motherID);
+                presenter.addParents(childID, fatherID, motherID);
             }
         }
     }
+    @Override
     public void getHumanInfo() {
         presenter.getFamilyInfo();
-        System.out.println("Введите id человека:");
+        System.out.println("Введите ID человека:");
         String strPerson = scanner.nextLine();
         if (checkTextForInt(strPerson)) {
             int personID = Integer.parseInt(strPerson);
@@ -126,18 +151,18 @@ public class ConsoleUI implements View, ConsoleCommands {
             }
         }
     }
+    @Override
     public void saveFamilyTree() {
         presenter.saveFamilyTree();
         System.out.println("Семейное дерево сохранено...");
     }
+    @Override
     public void downloadFamilyTree() {
         System.out.println("Введите название древа:");
         String name = scanner.nextLine();
         presenter.downloadFamilyTree(name);
         presenter.getFamilyInfo();
     }
-
-
 
     @Override
     public void sortByName() {
@@ -149,8 +174,9 @@ public class ConsoleUI implements View, ConsoleCommands {
         presenter.sortByBirthDate();
     }
 
+    @Override
     public void finish() {
-        System.out.println("Пока");
+        System.out.println("До новых встреч");
         work = false;
     }
 
@@ -190,7 +216,7 @@ public class ConsoleUI implements View, ConsoleCommands {
         if (id >= 1 && id <= getTreeSize()) {
             return true;
         } else {
-            System.out.println("Человека с таким id не найдено!!");
+            System.out.println("Человека с таким ID не найдено!!");
             return false;
         }
     }

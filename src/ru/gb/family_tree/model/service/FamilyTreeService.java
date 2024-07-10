@@ -33,15 +33,16 @@ public class FamilyTreeService implements Service{
         familyTree = new FamilyTree<>(familyName);
     }
 
-    public int addInFamily(String name, LocalDate birthDate, Gender gender) {
+    public void addInFamily(String name, LocalDate birthDate, Gender gender) {
         Human newHuman = new Human(name, gender, birthDate);
-        return familyTree.addInFamily(newHuman);
+        familyTree.addInFamily(newHuman);
     }
 
-    public int getNewId() {
-        return familyTree.getCount();
+    @Override
+    public void addDeathDate(int id, LocalDate deathDate) {
+        Human person = findByID(id);
+        person.setDeathDate(deathDate);
     }
-
 
     @Override
     public void getMarried(int husbandID, int wifeID) {
@@ -51,7 +52,7 @@ public class FamilyTreeService implements Service{
     }
 
     @Override
-    public void getChild(int childID, int fatherID, int motherID) {
+    public void addParents(int childID, int fatherID, int motherID) {
         Human child = findByID(childID);
         Human father = findByID(fatherID);
         Human mother = findByID(motherID);
@@ -71,7 +72,7 @@ public class FamilyTreeService implements Service{
             familyTree = saving.download(name);
             getFamilyInfo();
         } catch (Exception e) {
-            System.out.println("увы((");
+            System.out.println("Увы, что-то пошло не так...");
         }
     }
 

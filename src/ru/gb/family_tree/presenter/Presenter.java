@@ -22,18 +22,23 @@ public class Presenter{
         service.createNewFamilyTree(familyName);
     }
 
-    public int addInFamily(String name, LocalDate birthDate, Gender gender) {
-        int newId = service.addInFamily(name, birthDate, gender);
-        view.printAnswer("New member ID: " + newId);
-        service.getFamilyInfo();
-        return newId;
+    public void addInFamily(String name, LocalDate birthDate, Gender gender) {
+        service.addInFamily(name, birthDate, gender);
+        getFamilyInfo();
+    }
+
+    public void addDeathDate(int id, LocalDate deathDate) {
+        service.addDeathDate(id, deathDate);
+        getFamilyInfo();
     }
 
     public void getMarried(int husbandID, int wifeID) {
         service.getMarried(husbandID, wifeID);
+        getFamilyInfo();
     }
-    public void getChild(int childID, int fatherID, int motherID) {
-        service.getChild(childID, fatherID, motherID);
+    public void addParents(int childID, int fatherID, int motherID) {
+        service.addParents(childID, fatherID, motherID);
+        getFamilyInfo();
     }
 
     public void GetFamilyList() {

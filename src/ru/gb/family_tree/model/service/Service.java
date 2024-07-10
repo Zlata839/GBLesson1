@@ -10,9 +10,10 @@ public interface Service {
     String getFamilyInfo();
     String getHumanInfo(long id);
     void createNewFamilyTree(String familyName);
-    int addInFamily(String name, LocalDate birthDate, Gender gender);
+    void addInFamily(String name, LocalDate birthDate, Gender gender);
+    void addDeathDate(int id, LocalDate deathDate);
     void getMarried(int husbandID, int wifeID);
-    void getChild(int childID, int fatherID, int motherID);
+    void addParents(int childID, int fatherID, int motherID);
     void saveFamilyTree();
     void downloadFamilyTree(String name);
     void sortByName();

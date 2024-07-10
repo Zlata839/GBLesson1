@@ -22,7 +22,6 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItems<H
 
     public Human(String name, Gender gender, LocalDate birthDate, LocalDate deathDate) {
 
-        this.id = id;
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -54,9 +53,7 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItems<H
     }
 
     @Override
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     @Override
     public String getName() {
@@ -132,6 +129,9 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItems<H
     private String getHumanInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t");
+        stringBuilder.append("id - ");
+        stringBuilder.append(id);
+        stringBuilder.append(", ");
         stringBuilder.append(name);
         stringBuilder.append(" (");
         stringBuilder.append(gender);
@@ -211,5 +211,3 @@ public class Human implements Serializable, Comparable<Human>, FamilyTreeItems<H
         return res.toString();
     }
 }
-
-

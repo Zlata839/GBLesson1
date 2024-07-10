@@ -1,9 +1,5 @@
 package ru.gb.family_tree.model.family_tree;
 
-import ru.gb.family_tree.model.family_tree.comparators.FamilyTreeComparatorByDate;
-import ru.gb.family_tree.model.family_tree.comparators.FamilyTreeComparatorByName;
-import ru.gb.family_tree.model.saving.FileHandler;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,7 +7,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implements Serializable, Iterable<E> {
+public class FamilyTree<E extends FamilyTreeItems<E>> implements Serializable, Iterable<E> {
     private int count = 1;
     private List<E> humanList;
     private String familyName;
@@ -27,15 +23,10 @@ public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implem
     }
 
 
-    public int addInFamily(E human) {
+    public void addInFamily(E human) {
         int newId = count++;
         human.setId(newId);
         humanList.add(human);
-        return newId;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public String getFamilyInfo() {
@@ -126,10 +117,6 @@ public class FamilyTree<E extends FamilyTreeItems<E>> extends FileHandler implem
     public Iterator<E> iterator() {
         return new FamilyTreeIterator<>(humanList);
     }
-
-//    public void sortByName() { humanList.sort(new FamilyTreeComparatorByName<>()); }
-//
-//    public void sortByBirthDate() { humanList.sort(new FamilyTreeComparatorByDate<>()); }
 
     public void sort(Comparator<E> comparator) {
         humanList.sort(comparator);

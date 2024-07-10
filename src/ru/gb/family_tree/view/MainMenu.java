@@ -13,7 +13,8 @@ public class MainMenu {
         commandList.add(new AddInFamily(consoleUI));
         commandList.add(new GetFamilyList(consoleUI));
         commandList.add(new GetMarried(consoleUI));
-        commandList.add(new GetChild(consoleUI));
+        commandList.add(new AddParents(consoleUI));
+        commandList.add(new AddDeathDate(consoleUI));
         commandList.add(new GetHumanInfo(consoleUI));
         commandList.add(new SaveFamilyTree(consoleUI));
         commandList.add(new DownloadFamilyTree(consoleUI));
