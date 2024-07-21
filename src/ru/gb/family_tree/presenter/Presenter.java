@@ -1,6 +1,7 @@
 package ru.gb.family_tree.presenter;
 
 import ru.gb.family_tree.model.human.Gender;
+import ru.gb.family_tree.model.saving.Saving;
 import ru.gb.family_tree.model.service.FamilyTreeService;
 import ru.gb.family_tree.view.View;
 
@@ -10,9 +11,9 @@ public class Presenter{
     private View view;
     private FamilyTreeService service;
 
-    public Presenter(View view) {
+    public Presenter(View view, Saving saving) {
         this.view = view;
-        service = new FamilyTreeService();
+        service = new FamilyTreeService(saving);
     }
     public void getFamilyInfo() {
         String info = service.getFamilyInfo();
@@ -46,9 +47,9 @@ public class Presenter{
         view.printAnswer(info);
     }
 
-    public void getHumanInfo(int id) {
+    public void getHumanInfo(long id) {
         String info = service.getHumanInfo(id);
-        System.out.println(info);
+        view.printAnswer(info);
     }
     public void saveFamilyTree() {
         service.saveFamilyTree();

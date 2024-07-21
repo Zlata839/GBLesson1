@@ -70,8 +70,6 @@ public class FamilyTree<E extends FamilyTreeItems<E>> implements Serializable, I
         mother.setChildren(motherChild);
     }
 
-
-
     public String getHumanInfo(E human) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n");

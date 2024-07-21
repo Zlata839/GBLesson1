@@ -13,8 +13,10 @@ import java.time.LocalDate;
 public class FamilyTreeService implements Service{
 
     private FamilyTree<Human> familyTree;
+    private Saving saving;
 
-    public FamilyTreeService() {
+    public FamilyTreeService(Saving saving) {
+        this.saving = saving;
         familyTree = new FamilyTree<>("");
     }
 

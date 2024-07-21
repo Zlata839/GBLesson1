@@ -1,6 +1,8 @@
 package ru.gb.family_tree.view;
 
 import ru.gb.family_tree.model.human.Gender;
+import ru.gb.family_tree.model.saving.ConsoleSaving;
+import ru.gb.family_tree.model.saving.Saving;
 import ru.gb.family_tree.presenter.Presenter;
 
 import java.time.LocalDate;
@@ -17,7 +19,8 @@ public class ConsoleUI implements View, ConsoleCommands {
 
     public ConsoleUI() {
         scanner = new Scanner(System.in);
-        presenter = new Presenter(this);
+        Saving saving = new ConsoleSaving();
+        presenter = new Presenter(this, saving);
         work = true;
         menu = new MainMenu(this);
     }
@@ -180,9 +183,6 @@ public class ConsoleUI implements View, ConsoleCommands {
         work = false;
     }
 
-    public int getTreeSize() {
-        return presenter.getTreeSize();
-    }
     private void printMenu() {
         System.out.println(menu.menu());
     }
@@ -213,7 +213,7 @@ public class ConsoleUI implements View, ConsoleCommands {
     }
 
     private boolean checkID(int id) {
-        if (id >= 1 && id <= getTreeSize()) {
+        if (id >= 1 && id <= presenter.getTreeSize()) {
             return true;
         } else {
             System.out.println("Человека с таким ID не найдено!!");
