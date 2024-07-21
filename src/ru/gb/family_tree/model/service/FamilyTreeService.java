@@ -63,13 +63,11 @@ public class FamilyTreeService implements Service{
 
     @Override
     public void saveFamilyTree() {
-        Saving saving = new ConsoleSaving();
         saving.save(familyTree);
     }
 
     @Override
     public void downloadFamilyTree(String name) {
-        Saving saving = new ConsoleSaving();
         try {
             familyTree = saving.download(name);
             getFamilyInfo();
